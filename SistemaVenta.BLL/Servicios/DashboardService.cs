@@ -71,8 +71,8 @@ namespace SistemaVenta.BLL.Servicios
                 resultado = tablaVenta.GroupBy(v => v.FechaRegistro.Value.Date).OrderBy(g => g.Key)
                                         .Select(dv => new { fecha = dv.Key.ToString("dd/MM/yyyy"), total = dv.Count() })
                                         .ToDictionary(keySelector: r => r.fecha, elementSelector: r => r.total);
-                return resultado;
             }
+            return resultado;
         }
 
         public async Task<DashboardDTO> Resumen()

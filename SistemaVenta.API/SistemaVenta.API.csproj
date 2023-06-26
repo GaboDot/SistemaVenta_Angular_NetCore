@@ -17,4 +17,8 @@
     <ProjectReference Include="..\SistemaVenta.IOC\SistemaVenta.IOC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
