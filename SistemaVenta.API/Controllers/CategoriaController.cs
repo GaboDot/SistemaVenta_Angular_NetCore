@@ -12,9 +12,9 @@ namespace SistemaVenta.API.Controllers
     {
         private readonly ICategoriasService _categoriaService;
 
-        public CategoriaController(ICategoriasService _categoriaService)
+        public CategoriaController(ICategoriasService categoriaService)
         {
-            _categoriaService = _categoriaService;
+            _categoriaService = categoriaService;
         }
 
         [HttpGet]
