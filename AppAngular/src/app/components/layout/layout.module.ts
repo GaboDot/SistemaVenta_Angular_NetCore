@@ -8,6 +8,7 @@ import { ProductoComponent } from './pages/producto/producto.component';
 import { VentaComponent } from './pages/venta/venta.component';
 import { HistorialVentaComponent } from './pages/historial-venta/historial-venta.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
+import { SharedModule } from 'src/app/reusable/shared/shared.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ReporteComponent } from './pages/reporte/reporte.component';
   ],
   imports: [
     CommonModule,
-    LayoutRoutingModule
+    LayoutRoutingModule,
+    SharedModule
   ]
 })
 export class LayoutModule { }
