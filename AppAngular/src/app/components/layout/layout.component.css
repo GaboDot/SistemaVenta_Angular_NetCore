@@ -1,0 +1,9 @@
+h1{
+    margin: 0;
+}
+
+.mat-line{
+    display: inline-block;
+    margin: 0.15em 0 0 1em !important;
+    vertical-align: top;
+}
