@@ -30,7 +30,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     this._usuarioService.lista().subscribe({
       next: (response) => {
         if(response.status) this.dataListaUsuarios.data = response.value;
-        else this._utilityService.mostrarAlerta('No se encontraron usuarios.', 'Cerrar');
+        else this._utilityService.mostrarAlerta('No se encontraron usuarios.', 'Cerrar', 'notif-warning');
       },
       error: (e) => {}
     });
@@ -81,11 +81,11 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
         this._usuarioService.eliminar(usuario.idUsuario).subscribe({
           next: (response) => {
             if(response.status) {
-              this._utilityService.mostrarAlerta('Se eliminó el usuario', 'Cerrar');
+              this._utilityService.mostrarAlerta('Se eliminó el usuario', 'Cerrar', 'notif-success');
               this.obtenerUsuarios();
             }
             else {
-              this._utilityService.mostrarAlerta('No se pudo eliminar el usuario', 'Cerrar');
+              this._utilityService.mostrarAlerta('No se pudo eliminar el usuario', 'Cerrar', 'notif-error');
             }
           },
           error: (e) => {}

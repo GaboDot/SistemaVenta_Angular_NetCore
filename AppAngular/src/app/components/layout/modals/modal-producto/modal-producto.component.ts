@@ -77,11 +77,11 @@ export class ModalProductoComponent implements OnInit {
       this._productoService.guardar(_producto).subscribe({
         next: (response) => {
           if(response.status) {
-            this._utilityService.mostrarAlerta('El producto se registró correctamente', 'Cerrar');
+            this._utilityService.mostrarAlerta('El producto se registró correctamente', 'Cerrar', 'notif-success');
             this.modalActual.close('true');
           }
           else {
-            this._utilityService.mostrarAlerta('No se pudo registrar el producto', 'Cerrar');
+            this._utilityService.mostrarAlerta('No se pudo registrar el producto', 'Cerrar', 'notif-error');
           }
         },
         error: (e) => {}
@@ -91,11 +91,11 @@ export class ModalProductoComponent implements OnInit {
       this._productoService.editar(_producto).subscribe({
         next: (response) => {
           if(response.status) {
-            this._utilityService.mostrarAlerta('El producto se actualizó correctamente', 'Cerrar');
+            this._utilityService.mostrarAlerta('El producto se actualizó correctamente', 'Cerrar', 'notif-success');
             this.modalActual.close('true');
           }
           else {
-            this._utilityService.mostrarAlerta('No se pudo actualizar el producto', 'Cerrar');
+            this._utilityService.mostrarAlerta('No se pudo actualizar el producto', 'Cerrar', 'notif-error');
           }
         },
         error: (e) => {}

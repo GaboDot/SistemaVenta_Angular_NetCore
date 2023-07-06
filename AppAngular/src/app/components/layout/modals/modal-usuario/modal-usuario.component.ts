@@ -77,11 +77,11 @@ export class ModalUsuarioComponent implements OnInit {
       this._usuarioService.guardar(_usuario).subscribe({
         next: (response) => {
           if(response.status) {
-            this._utilityService.mostrarAlerta('El usuario se registró correctamente', 'Cerrar');
+            this._utilityService.mostrarAlerta('El usuario se registró correctamente', 'Cerrar', 'notif-success');
             this.modalActual.close('true');
           }
           else {
-            this._utilityService.mostrarAlerta('No se pudo registrar el usuario', 'Cerrar');
+            this._utilityService.mostrarAlerta('No se pudo registrar el usuario', 'Cerrar', 'notif-error');
           }
         },
         error: (e) => {}
@@ -91,11 +91,11 @@ export class ModalUsuarioComponent implements OnInit {
       this._usuarioService.editar(_usuario).subscribe({
         next: (response) => {
           if(response.status) {
-            this._utilityService.mostrarAlerta('El usuario se actualizó correctamente', 'Cerrar');
+            this._utilityService.mostrarAlerta('El usuario se actualizó correctamente', 'Cerrar', 'notif-success');
             this.modalActual.close('true');
           }
           else {
-            this._utilityService.mostrarAlerta('No se pudo actualizar el usuario', 'Cerrar');
+            this._utilityService.mostrarAlerta('No se pudo actualizar el usuario', 'Cerrar', 'notif-error');
           }
         },
         error: (e) => {}

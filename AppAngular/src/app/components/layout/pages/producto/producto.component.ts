@@ -30,7 +30,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     this._productoService.lista().subscribe({
       next: (response) => {
         if(response.status) this.dataListaProductos.data = response.value;
-        else this._utilityService.mostrarAlerta('No se encontraron productos.', 'Cerrar');
+        else this._utilityService.mostrarAlerta('No se encontraron productos.', 'Cerrar', 'notif-warning');
       },
       error: (e) => {}
     });
@@ -81,11 +81,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
         this._productoService.eliminar(producto.idProducto).subscribe({
           next: (response) => {
             if(response.status) {
-              this._utilityService.mostrarAlerta('Se eliminó el usuario', 'Cerrar');
+              this._utilityService.mostrarAlerta('Se eliminó el usuario', 'Cerrar', 'notif-success');
               this.obtenerProductos();
             }
             else {
-              this._utilityService.mostrarAlerta('No se pudo eliminar el usuario', 'Cerrar');
+              this._utilityService.mostrarAlerta('No se pudo eliminar el usuario', 'Cerrar', 'notif-error');
             }
           },
           error: (e) => {}

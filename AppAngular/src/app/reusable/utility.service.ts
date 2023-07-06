@@ -9,11 +9,12 @@ export class UtilityService {
 
   constructor(private _snackBar: MatSnackBar) { }
 
-  mostrarAlerta(mensaje: string, tipo: string) {
+  mostrarAlerta(mensaje: string, tipo: string, customCSS: string) {
     this._snackBar.open(mensaje, tipo, {
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      duration: 3000
+      duration: 3000,
+      panelClass: customCSS
     });
   }
 

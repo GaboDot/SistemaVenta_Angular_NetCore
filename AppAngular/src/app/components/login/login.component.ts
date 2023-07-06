@@ -44,14 +44,14 @@ export class LoginComponent implements OnInit{
           this.router.navigate(['pages']);
         }
         else {
-          this._utilityService.mostrarAlerta('Usuario o clave incorrectos', 'Cerrar');
+          this._utilityService.mostrarAlerta('Usuario o clave incorrectos', 'Cerrar', 'notif-success');
         }
       },
       complete: () => {
         this.mostrarLoading = false;
       },
       error: () => {
-        this._utilityService.mostrarAlerta('Error al iniciar sesión', 'Cerrar');
+        this._utilityService.mostrarAlerta('Error al iniciar sesión', 'Cerrar', 'notif-success');
       }
     });
   }
