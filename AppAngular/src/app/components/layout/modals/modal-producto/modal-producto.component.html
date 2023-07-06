@@ -1,38 +1,34 @@
-<h2 mat-dialog-title>{{ tituloModal }} Usuario</h2>
+<h2 mat-dialog-title>{{ tituloModal }} Producto</h2>
 <mat-dialog-content>
-    <form [formGroup]="formularioUsuario">
+    <form [formGroup]="formularioProducto">
         <mat-grid-list cols="1" rowHeight="90px">
             <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                    <mat-label>Nombre Completo</mat-label>
-                    <input matInput autocomplete="off" formControlName="nombreCompleto">
-                    <mat-icon matSuffix>account-box</mat-icon>
+                    <mat-label>Nombre Producto</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre">
+                    <mat-icon matSuffix>fit_screen</mat-icon>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                    <mat-label>Correo</mat-label>
-                    <input matInput autocomplete="off" formControlName="correo">
-                    <mat-icon matSuffix>mail</mat-icon>
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-form-field appearance="outline">
-                    <mat-label>Rol</mat-label>
-                    <mat-select formControlName="idRol">
-                        <mat-option *ngFor="let item of listaRoles" [value]="item.idRol">{{ item.nombre }}</mat-option>
+                    <mat-label>Categoría</mat-label>
+                    <mat-select formControlName="idCategoria">
+                        <mat-option *ngFor="let item of listaCategorias" [value]="item.idCategoria">{{ item.nombre }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input [type]="ocultarPassword ? 'password' : 'text'"
-                    formControlName="clave" matInput>
-                    <button mat-icon-button matSuffix
-                    (click)="ocultarPassword = !ocultarPassword" type="button">
-                    <mat-icon matSuffix>{{ ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
+                    <mat-label>Stock</mat-label>
+                    <input matInput autocomplete="off" formControlName="stock" type="number">
+                    <mat-icon matSuffix>edit_square</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Precio</mat-label>
+                    <input matInput autocomplete="off" formControlName="precio">
+                    <mat-icon matSuffix>attach_money</mat-icon>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
@@ -49,7 +45,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-raised-button color="primary" 
-    [disabled]="formularioUsuario.invalid"
-    (click)="guardarEditarUsuario()">{{ botonModal }}</button>
+    [disabled]="formularioProducto.invalid"
+    (click)="guardarEditarProducto()">{{ botonModal }}</button>
     <button mat-raised-button mat-dialog-close color="warn">Cancelar</button>
 </mat-dialog-actions>

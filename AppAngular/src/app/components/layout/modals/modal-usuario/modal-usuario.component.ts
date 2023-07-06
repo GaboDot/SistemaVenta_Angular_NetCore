@@ -12,7 +12,7 @@ import { UtilityService } from 'src/app/reusable/utility.service';
   templateUrl: './modal-usuario.component.html',
   styleUrls: ['./modal-usuario.component.css']
 })
-export class ModalUsuarioComponent implements OnInit{
+export class ModalUsuarioComponent implements OnInit {
 
   formularioUsuario: FormGroup;
   ocultarPassword: boolean = true;
@@ -26,7 +26,7 @@ export class ModalUsuarioComponent implements OnInit{
     private fb: FormBuilder,
     private _rolService: RolService,
     private _usuarioService: UsuarioService,
-    private _utiltyService: UtilityService
+    private _utilityService: UtilityService
   ) {
     this.formularioUsuario = this.fb.group({
       nombreCompleto: ['', Validators.required],
@@ -77,11 +77,11 @@ export class ModalUsuarioComponent implements OnInit{
       this._usuarioService.guardar(_usuario).subscribe({
         next: (response) => {
           if(response.status) {
-            this._utiltyService.mostrarAlerta('El usuario se registró correctamente', 'Cerrar');
+            this._utilityService.mostrarAlerta('El usuario se registró correctamente', 'Cerrar');
             this.modalActual.close('true');
           }
           else {
-            this._utiltyService.mostrarAlerta('No se pudo registrar el usuario', 'Cerrar');
+            this._utilityService.mostrarAlerta('No se pudo registrar el usuario', 'Cerrar');
           }
         },
         error: (e) => {}
@@ -91,11 +91,11 @@ export class ModalUsuarioComponent implements OnInit{
       this._usuarioService.editar(_usuario).subscribe({
         next: (response) => {
           if(response.status) {
-            this._utiltyService.mostrarAlerta('El usuario se actualizó correctamente', 'Cerrar');
+            this._utilityService.mostrarAlerta('El usuario se actualizó correctamente', 'Cerrar');
             this.modalActual.close('true');
           }
           else {
-            this._utiltyService.mostrarAlerta('No se pudo actualizar el usuario', 'Cerrar');
+            this._utilityService.mostrarAlerta('No se pudo actualizar el usuario', 'Cerrar');
           }
         },
         error: (e) => {}

@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
-export class UsuarioComponent implements OnInit, AfterViewInit{
+export class UsuarioComponent implements OnInit, AfterViewInit {
 
   columnsTable: string[] = ['nombreCompleto', 'correo', 'rolDescripcion', 'status', 'acciones'];
   dataInicio: Usuario[] = [];
@@ -30,7 +30,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit{
     this._usuarioService.lista().subscribe({
       next: (response) => {
         if(response.status) this.dataListaUsuarios.data = response.value;
-        else this._utilityService.mostrarAlerta('No se encontraron datos.', 'Cerrar');
+        else this._utilityService.mostrarAlerta('No se encontraron usuarios.', 'Cerrar');
       },
       error: (e) => {}
     });
