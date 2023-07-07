@@ -20,6 +20,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     &.notif-warning {
-        --mdc-snackbar-container-color: #dfd118;
+        --mdc-snackbar-container-color: #ef6c00;
       }
   }

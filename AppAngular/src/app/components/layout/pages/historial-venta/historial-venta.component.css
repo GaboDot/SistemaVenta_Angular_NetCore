@@ -1,0 +1,26 @@
+.mat-divider {
+    margin: 1em 0;
+}
+
+table {
+    width: 100%;
+}
+
+.campos-formulario {
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn_buscar {
+    width: 150px;
+    margin-top: 15px;
+}
+
+mat-form-field {
+    margin-right: 1em;
+}
+
+.input-filter {
+    width: 100%;
+    font-size: 14px;
+}

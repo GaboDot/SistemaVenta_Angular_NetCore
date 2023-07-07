@@ -14,7 +14,7 @@ namespace SistemaVenta.DTO
 
         public string? TipoPago { get; set; }
 
-        public string? TotalText { get; set; }
+        public string? TotalTexto { get; set; }
 
         public string? FechaRegistro { get; set; }
 

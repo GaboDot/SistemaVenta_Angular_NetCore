@@ -71,7 +71,7 @@ namespace SistemaVenta.Utilities
 
             CreateMap<Venta, VentaDTO>()
                 .ForMember(destino =>
-                    destino.TotalText,
+                    destino.TotalTexto,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-MX")))
                 )
                 .ForMember(destino =>
@@ -82,7 +82,7 @@ namespace SistemaVenta.Utilities
             CreateMap<VentaDTO, Venta>()
                 .ForMember(destino =>
                     destino.Total,
-                    opt => opt.MapFrom(origen => Convert.ToDecimal(origen.TotalText, new CultureInfo("es-MX")))
+                    opt => opt.MapFrom(origen => Convert.ToDecimal(origen.TotalTexto, new CultureInfo("es-MX")))
                 );
 
             CreateMap<DetalleVenta, DetalleVentaDTO>()
@@ -91,22 +91,22 @@ namespace SistemaVenta.Utilities
                     opt => opt.MapFrom(origen => origen.IdProductoNavigation.Nombre)
                 )
                 .ForMember(destino =>
-                    destino.PrecioText,
+                    destino.PrecioTexto,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Precio.Value, new CultureInfo("es-MX")))
                 )
                 .ForMember(destino =>
-                    destino.TotalText,
+                    destino.TotalTexto,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-MX")))
                 );
 
             CreateMap<DetalleVentaDTO, DetalleVenta>()
                 .ForMember(destino =>
                     destino.Precio,
-                    opt => opt.MapFrom(origen => Convert.ToDecimal(origen.PrecioText, new CultureInfo("es-MX")))
+                    opt => opt.MapFrom(origen => Convert.ToDecimal(origen.PrecioTexto, new CultureInfo("es-MX")))
                 )
                 .ForMember(destino =>
                     destino.Total,
-                    opt => opt.MapFrom(origen => Convert.ToDecimal(origen.TotalText, new CultureInfo("es-MX")))
+                    opt => opt.MapFrom(origen => Convert.ToDecimal(origen.TotalTexto, new CultureInfo("es-MX")))
                 );
 
             CreateMap<DetalleVenta, ReporteDTO>()
