@@ -19,3 +19,8 @@ table {
 mat-form-field {
     margin-right: 1em;
 }
+
+.mat-mdc-raised-button.mat-excelBtn {
+    --mdc-protected-button-container-color: #4caf50;
+    --mdc-protected-button-label-text-color: #fff;
+}
