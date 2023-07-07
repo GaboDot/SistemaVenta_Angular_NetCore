@@ -4,7 +4,7 @@ using SistemaVenta.BLL.Servicios.Contrato;
 using SistemaVenta.DAL.Repositorios.Contrato;
 using SistemaVenta.DTO;
 using SistemaVenta.Model;
-using System.Reflection.Metadata;
+using SistemaVenta.Utilities;
 
 namespace SistemaVenta.BLL.Servicios
 {
@@ -12,6 +12,7 @@ namespace SistemaVenta.BLL.Servicios
     {
         private readonly IGenericRepository<Usuario> _usuarioRepositorio;
         private readonly IMapper _mapper;
+        string hashed = "";
 
         public UsuarioService(IGenericRepository<Usuario> usuarioRepositorio, IMapper mapper)
         {
@@ -34,9 +35,10 @@ namespace SistemaVenta.BLL.Servicios
         {
             try
             {
+                hashed = HashPassword.CreateSHAHash(clave);
                 var queryUsuario = await _usuarioRepositorio.Consultar(u =>
                                         u.Correo == correo &&
-                                        u.Clave == clave
+                                        u.Clave == hashed
                                     );
                 if(queryUsuario.FirstOrDefault() == null)
                     throw new TaskCanceledException("El usuario no existe");
@@ -52,6 +54,7 @@ namespace SistemaVenta.BLL.Servicios
         {
             try
             {
+                model.Clave = HashPassword.CreateSHAHash(model.Clave);
                 var usuarioCreado = await _usuarioRepositorio.Crear(_mapper.Map<Usuario>(model));
                 if(usuarioCreado.IdUsuario ==0)
                     throw new TaskCanceledException("No se pudo crear el usuario");
@@ -76,7 +79,8 @@ namespace SistemaVenta.BLL.Servicios
                 usuarioEncontrado.NombreCompleto = usuarioModelo.NombreCompleto;
                 usuarioEncontrado.Correo = usuarioModelo.Correo;
                 usuarioEncontrado.IdRol = usuarioModelo.IdRol;
-                usuarioEncontrado.Clave = usuarioModelo.Clave;
+                if(!string.IsNullOrEmpty(usuarioModelo.Clave))
+                    usuarioEncontrado.Clave = HashPassword.CreateSHAHash(usuarioModelo.Clave);
                 usuarioEncontrado.EsActivo = usuarioModelo.EsActivo;
 
                 bool respuesta = await _usuarioRepositorio.Editar(usuarioEncontrado);
