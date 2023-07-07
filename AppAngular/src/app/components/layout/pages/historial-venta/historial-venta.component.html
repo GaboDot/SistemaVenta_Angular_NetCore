@@ -13,17 +13,17 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill" *ngIf="formularioBusqueda.value.buscarPor == 'numero'">
                     <mat-label>Folio</mat-label>
-                    <input matInput autocomplete="off" formControlName="numero">
+                    <input matInput autocomplete="off" formControlName="numero" maxlength="4" numbersOnly placeholder="0000">
                 </mat-form-field>
                 <mat-form-field appearance="fill" *ngIf="formularioBusqueda.value.buscarPor == 'fecha'">
                     <mat-label>Fecha Inicio</mat-label>
-                    <input matInput autocomplete="off" formControlName="fechaInicio" [matDatepicker]="picker1">
+                    <input matInput autocomplete="off" formControlName="fechaInicio" [matDatepicker]="picker1"  (dateChange)="setMinDate('change', $event)" [max]="maxFecha">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field appearance="fill" *ngIf="formularioBusqueda.value.buscarPor == 'fecha'">
                     <mat-label>Fecha Fin</mat-label>
-                    <input matInput autocomplete="off" formControlName="fechaFin" [matDatepicker]="picker2">
+                    <input matInput autocomplete="off" formControlName="fechaFin" [matDatepicker]="picker2" [min]="minFechaFin" [max]="maxFecha">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
@@ -37,7 +37,7 @@
         </form>
         <mat-divider></mat-divider>
         <mat-form-field appearance="outline" class="input-filter">
-            <mat-label>Buscar</mat-label>
+            <mat-label>Filtrar</mat-label>
             <input matInput (keyup)="aplicarFiltros($event)" #input>
         </mat-form-field>
         <div class="mat-elevation-z2">
@@ -70,7 +70,7 @@
                 <tr mat-header-row *matHeaderRowDef="columnsTable"></tr>
                 <tr mat-row *matRowDef="let row; columns: columnsTable;"></tr>
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat=cell" colspan="4">Sin resultados del filtro: "{{ input.value }}"</td>
+                    <td class="mat=cell" colspan="4">Sin datos para mostrar.</td>
                 </tr>
             </table>
             <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>

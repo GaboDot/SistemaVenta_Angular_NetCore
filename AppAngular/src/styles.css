@@ -9,17 +9,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-mdc-snack-bar-container {
-    --mdc-snackbar-supporting-text-color: #ffffff;
-  
-    &.notif-error {
-      --mdc-snackbar-container-color: #f23a2f;
-    }
-  
-    &.notif-success {
-      --mdc-snackbar-container-color: #43a446;
-    }
+  --mdc-snackbar-supporting-text-color: #ffffff;
 
-    &.notif-warning {
-        --mdc-snackbar-container-color: #ef6c00;
-      }
+  &.notif-error {
+    --mdc-snackbar-container-color: #f23a2f;
   }
+
+  &.notif-success {
+    --mdc-snackbar-container-color: #43a446;
+  }
+
+  &.notif-warning {
+      --mdc-snackbar-container-color: #ef6c00;
+    }
+}
+
+.input-filter {
+  width: 100%;
+  font-size: 14px;
+}

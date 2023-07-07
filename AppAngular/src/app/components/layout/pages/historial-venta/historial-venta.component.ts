@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { ModalDetalleVentaComponent } from '../../modals/modal-detalle-venta/modal-detalle-venta.component';
 import { Venta } from 'src/app/interfaces/venta';
@@ -39,6 +40,8 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
   dataInicio: Venta[] = [];
   datosListaVenta = new MatTableDataSource(this.dataInicio);
   @ViewChild(MatPaginator) pagTable!: MatPaginator;
+  minFechaFin: any;
+  maxFecha: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -50,7 +53,7 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
       buscarPor: ['fecha'],
       numero: [''],
       fechaInicio: [''],
-      fechaFin: ['']
+      fechaFin: [new Date()]
     });
 
     this.formularioBusqueda.get('buscarPor')?.valueChanges.subscribe(value => {
@@ -102,11 +105,19 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
   }
 
   verDetalleVenta(_venta: Venta) {
-    this.dialog.open(ModalDetalleVentaComponent,{
+    this.dialog.open(ModalDetalleVentaComponent, {
       data: _venta,
       disableClose: true,
       width: '700px'
     });
+  }
+
+  setMinDate(type: string, event: MatDatepickerInputEvent<Date>) {
+    if(type == 'change') {
+      this.minFechaFin = event.value;
+      this.formularioBusqueda.value.fechaFin = this.minFechaFin;
+      this.formularioBusqueda.value.fechaFin.text = this.minFechaFin;
+    }
   }
 
 }

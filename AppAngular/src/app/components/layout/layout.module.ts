@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/reusable/shared/shared.module';
 import { ModalUsuarioComponent } from './modals/modal-usuario/modal-usuario.component';
 import { ModalProductoComponent } from './modals/modal-producto/modal-producto.component';
 import { ModalDetalleVentaComponent } from './modals/modal-detalle-venta/modal-detalle-venta.component';
+import { NumberDirective } from 'src/app/reusable/numbers-only.directive';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ModalDetalleVentaComponent } from './modals/modal-detalle-venta/modal-d
     ReporteComponent,
     ModalUsuarioComponent,
     ModalProductoComponent,
-    ModalDetalleVentaComponent
+    ModalDetalleVentaComponent,
+    NumberDirective
   ],
   imports: [
     CommonModule,
