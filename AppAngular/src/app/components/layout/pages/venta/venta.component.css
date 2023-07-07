@@ -1,0 +1,7 @@
+.full-width, table {
+    width: 100%;
+}
+
+button.noClick, button.noClick:hover, button.noClick > * {
+    cursor: default !important;
+}
