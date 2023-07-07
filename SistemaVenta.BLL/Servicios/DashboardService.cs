@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SistemaVenta.BLL.Servicios.Contrato;
 using SistemaVenta.DAL.Repositorios.Contrato;
 using SistemaVenta.DTO;
@@ -12,12 +13,14 @@ namespace SistemaVenta.BLL.Servicios
     {
         private readonly IVentaRepository _ventaRepository;
         private readonly IGenericRepository<Producto> _productoRepositorio;
+        private readonly IGenericRepository<DetalleVenta> _detalleRepositorio;
         private readonly IMapper _mapper;
 
-        public DashboardService(IVentaRepository ventaRepository, IGenericRepository<Producto> productoRepositorio, IMapper mapper)
+        public DashboardService(IVentaRepository ventaRepository, IGenericRepository<Producto> productoRepositorio, IGenericRepository<DetalleVenta> detalleVentaRepo, IMapper mapper)
         {
             _ventaRepository = ventaRepository;
             _productoRepositorio = productoRepositorio;
+            _detalleRepositorio = detalleVentaRepo;
             _mapper = mapper;
         }
 
@@ -56,8 +59,17 @@ namespace SistemaVenta.BLL.Servicios
 
         private async Task<int> TotalProductos()
         {
-            IQueryable<Producto> _productoQuery = await _productoRepositorio.Consultar();
-            int total = _productoQuery.Count();
+            int total = 0;
+            IQueryable<Venta> _ventaQuery = await _ventaRepository.Consultar();
+            if (_ventaQuery.Count() > 0)
+            {
+                IQueryable<Venta> tablaVenta = RetornarVentas(_ventaQuery, -7);
+                IQueryable<DetalleVenta> _detalleQuery = await _detalleRepositorio.Consultar();
+                var ventas = (from v in tablaVenta
+                              join dv in _detalleQuery on v.IdVenta equals dv.IdVenta
+                              select new { cantidad = dv.Cantidad });
+                total = ventas.Select(v => v.cantidad).Sum(v => v.Value);
+            }
             return total;
         }
 
