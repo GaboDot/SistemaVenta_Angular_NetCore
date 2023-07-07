@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,7 +24,8 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private _usuarioService: UsuarioService,
-    private _utilityService: UtilityService
+    private _utilityService: UtilityService,
+    private router: Router
   ) {}
 
   obtenerUsuarios() {
@@ -37,7 +39,13 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.obtenerUsuarios();
+    const usuario = this._utilityService.obtenerSesionUsuario();
+    if(usuario != null)
+      this.obtenerUsuarios();
+    else {
+      this._utilityService.eliminarSesion();
+      this.router.navigate(['login']);
+    }
   }
 
   ngAfterViewInit(): void {

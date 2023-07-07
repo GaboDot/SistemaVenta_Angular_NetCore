@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -47,7 +48,8 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private _ventaService: VentaService,
-    private _utilityService: UtilityService
+    private _utilityService: UtilityService,
+    private router: Router
   ) {
     this.formularioBusqueda = this.fb.group({
       buscarPor: ['fecha'],
@@ -65,7 +67,13 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const usuario = this._utilityService.obtenerSesionUsuario();
+    if(usuario == null) {
+      this._utilityService.eliminarSesion();
+      this.router.navigate(['login']);
+    }
+  }
 
   ngAfterViewInit(): void {
     this.datosListaVenta.paginator = this.pagTable;

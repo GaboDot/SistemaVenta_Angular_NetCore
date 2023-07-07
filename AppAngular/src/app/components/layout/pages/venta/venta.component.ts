@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -37,7 +38,8 @@ export class VentaComponent implements OnInit {
     private fb: FormBuilder,
     private _productoService: ProductoService,
     private _ventaService: VentaService,
-    private _utilityService: UtilityService
+    private _utilityService: UtilityService,
+    private router: Router
   ) {
     this.formularioProductoVenta = this.fb.group({
       producto: ['', Validators.required],
@@ -58,7 +60,13 @@ export class VentaComponent implements OnInit {
   }
 
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const usuario = this._utilityService.obtenerSesionUsuario();
+    if(usuario == null) {
+      this._utilityService.eliminarSesion();
+      this.router.navigate(['login']);
+    }
+  }
 
   mostrarProducto(producto: Producto): string {
     return producto.nombre;

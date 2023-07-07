@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { UtilityService } from 'src/app/reusable/utility.service';
 Chart.register(...registerables);
 
 
@@ -17,7 +19,9 @@ export class DashboardComponent implements OnInit {
   totalProductos: string = '0';
 
   constructor(
-    private _dashboardService: DashboardService
+    private _dashboardService: DashboardService,
+    private _utilityService: UtilityService,
+    private router: Router
   ) {}
 
   mostrarGrafico(labelsChart: any[], dataChart: any[]) {
@@ -46,21 +50,28 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._dashboardService.resumen().subscribe({
-      next: (response) => {
-        if(response.status) {
-          this.totalIngresos = response.value.totalIngresos;
-          this.totalVentas = response.value.totalVentas;
-          this.totalProductos = response.value.totalProductos;
-
-          const arrayData: any[] = response.value.ventasUltimaSemana;
-          const labelTmp = arrayData.map((value) => value.fecha);
-          const dataTmp = arrayData.map((value) => value.total);
-
-          this.mostrarGrafico(labelTmp, dataTmp);
-        }
-      },
-      error: (e) => {}
-    });
+    const usuario = this._utilityService.obtenerSesionUsuario();
+    if(usuario != null) {
+      this._dashboardService.resumen().subscribe({
+        next: (response) => {
+          if(response.status) {
+            this.totalIngresos = response.value.totalIngresos;
+            this.totalVentas = response.value.totalVentas;
+            this.totalProductos = response.value.totalProductos;
+  
+            const arrayData: any[] = response.value.ventasUltimaSemana;
+            const labelTmp = arrayData.map((value) => value.fecha);
+            const dataTmp = arrayData.map((value) => value.total);
+  
+            this.mostrarGrafico(labelTmp, dataTmp);
+          }
+        },
+        error: (e) => {}
+      });
+    }
+    else {
+      this._utilityService.eliminarSesion();
+      this.router.navigate(['login']);
+    }
   }
 }

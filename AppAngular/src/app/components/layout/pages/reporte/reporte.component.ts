@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -41,7 +42,8 @@ export class ReporteComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private _ventaService: VentaService,
-    private _utilityService: UtilityService
+    private _utilityService: UtilityService,
+    private router: Router
   ) {
     this.formularioFiltro = this.fb.group({
       fechaInicio: ['', Validators.required],
@@ -49,7 +51,13 @@ export class ReporteComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const usuario = this._utilityService.obtenerSesionUsuario();
+    if(usuario == null) {
+      this._utilityService.eliminarSesion();
+      this.router.navigate(['login']);
+    }
+  }
 
   ngAfterViewInit(): void {
     this.dataVentaReporte.paginator = this.pagTable;

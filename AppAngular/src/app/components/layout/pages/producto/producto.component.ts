@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,7 +24,8 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private _productoService: ProductoService,
-    private _utilityService: UtilityService
+    private _utilityService: UtilityService,
+    private router: Router
   ) {}
 
   obtenerProductos() {
@@ -37,7 +39,13 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.obtenerProductos();
+    const usuario = this._utilityService.obtenerSesionUsuario();
+    if(usuario != null)
+      this.obtenerProductos();
+    else {
+      this._utilityService.eliminarSesion();
+      this.router.navigate(['login']);
+    }
   }
 
   ngAfterViewInit(): void {
